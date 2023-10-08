@@ -100,3 +100,22 @@ module "sftp_server_module" {
     Environment = var.environment
   }
 }
+
+###############################################################################
+# SFTP Users
+###############################################################################
+### SAMPLE RESTRICTED USER
+module "sftp_user_module" {
+  source          = "./transfer_sftp_user_module/"
+  sftp_server_id  = module.sftp_server_module.sftp_server_id
+  ssh_public_keys = [file("./ssh_keys/user1_sshkey")]
+  user_name       = "user1"
+  role_name       = "user1-sftp-role"
+  home_directory_bucket = {
+    arn = module.s3_bucket.bucket_arn
+    id  = module.s3_bucket.bucket_id
+  }
+  home_directory_key_prefix = "user1/"
+
+  restricted = true
+}
