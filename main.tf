@@ -57,3 +57,30 @@ module "s3_bucket" {
   s3_bucket_name = "sftp-middle-office-antonio"
   app_name       = "middle-office-sftp-server-antonio"
 }
+
+###############################################################################
+# Security Group
+###############################################################################
+module "security_group_ec2" {
+  source = "./security_group_module/"
+
+  name        = "test-sftp-server-sg"
+  description = "Security group for SFTP VPC"
+  vpc_id      = module.vpc.vpc_id
+
+  ingress_with_cidr_blocks = [
+    {
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      description = "Allow connections from everywhere on port 22"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
+
+  egress_rules = ["all-all"]
+
+  tags = {
+    Environment = var.environment
+  }
+}
