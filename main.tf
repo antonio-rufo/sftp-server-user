@@ -86,7 +86,7 @@ module "security_group_ec2" {
 }
 
 ###############################################################################
-# SFTP Server
+# SFTP Server 1
 ###############################################################################
 module "sftp_server_module" {
   source                 = "./transfer_sftp_server_module/"
@@ -102,7 +102,7 @@ module "sftp_server_module" {
 }
 
 ###############################################################################
-# SFTP Users
+# SFTP Users for SFTP Server 1
 ###############################################################################
 ### SAMPLE RESTRICTED USER
 module "sftp_user_module" {
