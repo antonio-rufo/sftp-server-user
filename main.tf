@@ -84,3 +84,19 @@ module "security_group_ec2" {
     Environment = var.environment
   }
 }
+
+###############################################################################
+# SFTP Server
+###############################################################################
+module "sftp_server_module" {
+  source                 = "./transfer_sftp_server_module/"
+  name                   = "sftp_test.sftp_server"
+  iam_role_name          = "sftp-logging-role"
+  vpc_id                 = module.vpc.vpc_id
+  subnet_ids             = module.vpc.private_subnets
+  vpc_security_group_ids = [module.security_group_ec2.security_group_id]
+
+  tags = {
+    Environment = var.environment
+  }
+}
