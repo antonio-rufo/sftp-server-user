@@ -119,3 +119,17 @@ module "sftp_user_module" {
 
   restricted = true
 }
+
+### SAMPLE ADMIN USER
+module "sftp_user_module_admin" {
+  source          = "./transfer_sftp_user_module/"
+  sftp_server_id  = module.sftp_server_module.sftp_server_id
+  ssh_public_keys = [file("./ssh_keys/user1_sshkey")]
+  user_name       = "admin"
+  role_name       = "admin-sftp-role"
+  home_directory_bucket = {
+    arn = module.s3_bucket.bucket_arn
+    id  = module.s3_bucket.bucket_id
+  }
+  home_directory_key_prefix = ""
+}
