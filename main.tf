@@ -38,7 +38,7 @@ module "vpc" {
   public_subnets  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
 
   # Single NAT gateway
-  
+
   enable_nat_gateway = true
   single_nat_gateway = true
   one_nat_gateway_per_az = false
@@ -46,4 +46,14 @@ module "vpc" {
   tags = {
     Environment = var.environment
   }
+}
+
+###############################################################################
+# S3
+###############################################################################
+module "s3_bucket" {
+  source = "./s3_bucket_module/"
+
+  s3_bucket_name = "sftp-middle-office-antonio"
+  app_name       = "middle-office-sftp-server-antonio"
 }
