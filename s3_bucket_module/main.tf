@@ -29,3 +29,22 @@ resource "aws_s3_bucket_acl" "sftp_bucket_acl" {
 
   depends_on = [aws_s3_bucket_ownership_controls.s3_bucket_acl_ownership]
 }
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "sftp_bucket_encryption" {
+  bucket = aws_s3_bucket.sftp_bucket.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = aws_kms_key.bucket_key.arn
+      sse_algorithm     = "aws:kms"
+    }
+  }
+}
+
+###############################################################################
+# KMS Key
+###############################################################################
+resource "aws_kms_key" "bucket_key" {
+  description             = "This key is used to encrypt bucket objects"
+  deletion_window_in_days = 7
+}

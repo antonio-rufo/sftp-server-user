@@ -15,3 +15,8 @@ output "bucket_arn" {
   description = "ARN of the S3 bucket."
   value       = aws_s3_bucket.sftp_bucket.arn
 }
+
+output "key_arn" {
+  description = "ARN of the KMS Key."
+  value       = aws_kms_key.bucket_key.arn
+}
