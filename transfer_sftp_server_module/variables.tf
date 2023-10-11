@@ -6,6 +6,11 @@ variable "name" {
   type        = string
 }
 
+variable "log_group_name" {
+  description = "The name of the log group"
+  type        = string
+}
+
 variable "iam_role_name" {
   description = "Name of the AWS Transfer Server IAM Role used for logging to CloudWatch Logs"
   type        = string
