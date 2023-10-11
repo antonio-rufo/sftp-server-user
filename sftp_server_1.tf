@@ -8,6 +8,7 @@ module "sftp_server_module" {
   vpc_id                 = module.vpc.vpc_id
   subnet_ids             = module.vpc.private_subnets
   vpc_security_group_ids = [module.security_group_ec2.security_group_id]
+  log_group_name         = "sftp_server_log_group"
 
   tags = {
     Environment = var.environment
